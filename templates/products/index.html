@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %} 
+{% block title %}
+    Интернет магазин кроссовок
+{% endblock %}
+{% block content %} 
+    <img
+        src="{% static 'img/main.jpg' %}"
+        class="img-fluid rounded"
+        alt=""
+    />
+    <hr>
+    <div class="row align-item-center">
+        <div class="col text-center fs-4 fw-bold">Рекомендуем</div>
+        {% include 'includes/cards.html' with products=products badge_new=True %} 
+    </div>
+    <hr>
+    <div class="row align-item-center">
+        <div class="col text-center fs-4 fw-bold">Новости</div>
+        <div class="row mt-4">
+            {% for item in news %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ item.cover.url }}" class="card-img-top" alt="..." height="200px">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item}}</h5>
+                      <p class="card-text">{{item.body|truncatechars:50}}</p>
+                      <a href="#" class="btn btn-success">Читать дальше</a>
+                    </div>
+                  </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+

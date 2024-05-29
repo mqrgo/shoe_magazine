@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2 class="fs-4">Заказы</h2>
+        <form method="get">
+            {% csrf_token %}
+            {% bootstrap_form filter.form %}
+            <button type="submit" class="btn btn-outline-danger px-4">Поиск</button>
+        </form>
+        {% for item in filter.qs %}
+        <div class="row mt-3 rounded mx-1 border border-secondary">
+            <div class="col p-3">
+                <div class="row">
+                    <div class="col-md-4 border-end border-2">
+                        Данные о заказе №
+                        <span class="fw-bold">{{item.order_number}}</span>
+                        <span class="fw-bold p-2 rounded 
+                            {% if item.delivery_status == 'FM' %}
+                                text-danger
+                            {% elif item.delivery_status == 'ST' %}
+                                text-warning
+                            {% else %}
+                                text-success
+                            {% endif %} 
+                        ">{{item.get_delivery_status_display}}</span>
+                        <p>
+                        <ul>
+                            <li>Получатель:
+                                <span class="fst-italic">{{item.name}}
+                            </li>
+                            <li>Телефон:
+                                <span class="fst-italic">{{item.phone}}
+                            </li>
+                            <li>Почта:
+                                <span class="fst-italic">{{item.email}}
+                            </li>
+                            <li>Адрес:
+                                <span class="fst-italic">{{item.address}}
+                            </li>
+                            <li>Дата заказа:
+                                <span class="fst-italic">{{item.order_date}}</span>
+                            </li>
+                            <li>Способ доставки
+                                <span class="fst-italic">{{item.get_delivery_type_display}}</span>
+                            </li>
+                            {% if item.comment %}
+                            <li>Комментарий
+                                <span class="fst-italic">{{item.comment}}</span>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p class="fw-bold">
+                            Товары:
+                        <ol>
+                            {% for product in item.order %}
+                            <li>
+                                
+                                <span class="fst-italic">{{product.title}}</span>
+                                Артикул:
+                                <span class="fst-italic">{{product.articul}}</span>
+                                Размер:
+                                <span class="fst-italic">{{product.size}}</span>
+                                Кол-во:
+                                <span class="fst-italic">{{product.amount}}</span>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                        </p>
+                    </div>
+                </div>
+                {% if admin %}
+                <a href="{% url 'products:edit_order' item.order_number %}" class="btn btn-outline-primary">Редактировать</a>
+                
+                {% endif %}
+                <a href="{% url 'products:track_your_order' %}?order_number={{item.order_number}}"
+                    class="btn btn-outline-success">Отследить</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

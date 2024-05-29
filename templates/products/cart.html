@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+
+{% block title %}Корзина{% endblock %}
+{% block content %}
+{% if message %}
+    <script>
+        alert('Ошибка! Кол-во товаров на складе было изменено, или форма не заполнена или у промокода истек срок действия')
+    </script>
+{% endif %}
+<div class="container">
+    <div class="row cart px-4">
+        <div class="col">
+            <div class="order-form rounded">
+                <div class="fs-5 fw-bold text-center mb-3 pt-3">Оформите заказ:</div>
+                <form action="{% url 'products:form_order' %}" method="post"> 
+                    {% csrf_token %}
+                    {% for item in form %}
+                        <div class="row mb-3">
+                           <div class="col">
+                                <div class="form-label">{{item.label}}:</div>
+                                <div class="">{{item}}</div>
+                           </div>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" name="cart" value="{{cart}}">
+                    <input type="hidden" name="total_price" value="
+                        {% if total_price_with_discount %} 
+                            {{total_price_with_discount}}
+                        {% else %} 
+                            {{total_price_with_delivery}}
+                        {% endif %}
+                    ">
+                    <div class="row">
+                        <input type="submit" value="Заказать" class="btn btn-danger submit-order align-self-center mb-4">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <h1 class="fs-4 mt-3">
+                У вас в корзине {{total_value|default:0}} 
+                {% if total_value == 1 %}
+                    товар
+                {% elif total_value >= 2 and total_value <= 4 %}
+                    товара
+                {% else %}
+                    товаров
+                {% endif %}
+            </h1>
+            <hr>
+            <div class="row text-muted">
+                <div class="col"><h2 class="fs-5 text-muted">Стоимость товаров:</h2></div>
+                <div class="col fs-5 fw-bold text-end">{{total_price}} &#8381;</div>
+            </div>
+            <div class="row text-muted">
+                <div class="col"><h2 class="fs-5">Доставка:</h2></div>
+                <div class="col fs-5 fw-bold text-end">350 &#8381;</div>
+            </div>
+            <div class="row">
+                <div class="col"><h2 class="fs-5">Итого:</h2></div>
+                <div class="col fs-5 fw-bold text-end">
+                    {% if total_price_with_discount %}  
+                         <span class="text-muted text-decoration-line-through">{{total_price_with_delivery}} &#8381;</span> {{total_price_with_discount}} &#8381;
+                    {% else %}
+                        {{total_price_with_delivery}} &#8381;
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            {% if total_price != 0 %}
+                <form action="{% url 'products:try_discount' %}" method="get">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="promocode" class="form-control" placeholder="Промокод"
+                                {% if total_price_with_discount and total_price %}
+                                    value="Промокод успешно применен."
+                                {% endif %}
+                            required>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class='btn btn-outline-danger'>Применить</button>
+                        </div>
+                    </div>
+                </form>
+                {% if discount_status == 'no_exist' %}
+                <ul class="text-danger mt-2"><li>Промокода не существует или закончился срок его действия.</li></ul>
+                {% elif discount_status == 'success' %}
+                    <ul class="text-success mt-2"><li>Промокода успешно применен.</li></ul>
+                {% endif %}
+                <hr>
+            {% endif %}
+            
+            {% for item in cart_items %}
+                <div class="row ">
+                        <div class="col-md-5">
+                            <div class="d-flex align-items-center justify-content-center square-image-container">
+                                <img src="{{item.product.image.first.image.url}}" alt="Image" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="fw-bold fs-5">
+                                {{item.product.price}} &#8381;
+                            </div>
+                            <div class="fw-light">
+                                {{item.product.product_type}} <br> 
+                                <a href="{{ item.product.get_absolute_url }}" class="text-black">{{item.product}}</a>
+                            </div>
+                            <hr>
+                            <div class="fw-light">
+                                Размер: <span class="fw-bold">{{item.size}}</span> 
+                                <br>
+                                Количество: <span class="fw-bold">
+                                    <a href="{% url 'products:edit_items_count_lower' item.pk %}" class="btn px-3 py-1 {% if item.amount == 1 %} disabled btn-outline-secondary {% else %} btn-outline-danger {% endif %}">
+                                         -
+                                    </a>  
+                                    <span class="mx-2">{{item.amount}}</span>
+                                    <a href="{% url 'products:edit_items_count_upper' item.pk %}" class="btn btn-outline-danger px-3 py-1">
+                                        +
+                                    </a>
+                                </span> 
+                            </div>
+                            <div class="mt-2">
+                                <a href="{% url 'products:delete_item_from_cart' item.pk %}" class="btn btn-danger">Удалить</a>
+                            </div>
+                        </div>
+                    <hr class="mt-3">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

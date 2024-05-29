@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{product.get_brand_display}} {{product.title}} - {{product.article}}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col">
+            {% include 'includes/product_carosel.html' %}
+        </div>
+        <div class="col">   
+            <h1 class="fs-3">{{product.get_gender_display}} {{product.product_type|lower}} <br> {{product}} </h1>
+            <p class="text-muted">Артикул: {{product.article}}</p>
+            <h2>{{product.price}} &#8381;</h2>
+            <p class="mt-4">
+                Выберите размер <span class="text-muted">(RUS)</span>:
+            </p>
+            {% include 'includes/size.html' %}
+            {% include 'includes/details_include.html' %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
+        <header class="sticky-top">
+            {% include 'includes/nav.html' %}
+        </header>
+        <br>
+        <div class="container">
+            <div class="inner">
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+        <br>
+        <footer></footer>
+        {% comment %} <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.esm.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
+
+    </body>
+</html>

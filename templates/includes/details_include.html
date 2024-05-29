@@ -1,0 +1,88 @@
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <span class="fs-5 fw-bold">Описание</span>
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">{{product.description}}</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          <span class="fs-5 fw-bold">Характеристики</span>
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+            <p>Пол: {{product.get_gender_display}}</p>
+            <p>Цвет: {{product.color}}</p>
+            <p>Тип: {{product.product_type}}</p>
+            <p>Сезон: {{product.get_season_display}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            <span class="fs-5 fw-bold">Возврат и обмен</span>
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+            Перед отправкой обмена обязательно свяжитесь с нашим менеджером <span class="text-danger">obmen@gmail.com</span> 
+            Подробные правила возврата товара
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+              <span class="fs-5 fw-bold">Доставка</span>
+          </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-collapseFour" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <p class="fw-bold">
+                Доставка по Москве
+            </p>
+            <ul>
+                <li>Доставка курьером в интервал 13:00-20:00 в пределах МКАД 350 руб.</li>
+                <li>Доставка "день в день" в пределах МКАД (при заказе до 16:00).</li>
+            </ul>  
+            <p class="fw-bold">
+                Ориентировочные сроки доставки по России
+            </p>
+            <ul>
+                <li>Почта России. Срок доставки от 4 до 14 дней.</li>
+                <li>СДЕК. Сроки доставки 3-7 рабочих дней.</li>
+                <li>Боксберри. Сроки доставки 3-7 рабочих дней.</li>
+            </ul>
+            <p class="fw-bold">
+                Доставка за границу осуществляется Почтой России по полной предоплате
+            </p>
+            <a href="#" class="text-danger">Подробные условия</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-headingFive" aria-expanded="false" aria-controls="flush-headingFive">
+              <span class="fs-5 fw-bold">Оплата</span>
+          </button>
+        </h2>
+        <div id="flush-headingFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            
+            Доступные способы оплаты:
+            <ul>
+                <li>Наличными при получении</li>
+                <li>Оплата он-лайн всеми популярными способами (Visa, Mastercard и тд.)</li>
+            </ul>     
+            Товары со скидкой отправляются по России только по полной предоплате. Все подробности в разделе <a href="#" class="text-danger">оплата</a>
+          </div>
+        </div>
+      </div>
+  </div>

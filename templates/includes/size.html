@@ -1,0 +1,16 @@
+<form action="{% url 'products:add_item_to_cart' %}" class="form" method="POST">
+    {% csrf_token %}
+    {% if not stock %}
+    <p>Нет в наличии</p>
+    {% else %}
+        {% for item in stock %}
+            {% if item.amount > 0 %}
+                <input type="radio" class="btn-check" name="size" id="{{item.size}}" value="{{item.size}}" autocomplete="off" required>
+                <label class="btn btn-outline-danger px-5 mb-1" for="{{item.size}}">{{item.size}}</label>
+            {% endif %} 
+        {% endfor %}
+        <input type="hidden" name="article" value="{{product.article}}"> 
+        <input type="hidden" name="next_url" value={{product.get_absolute_url}}>
+    {% endif %}
+    <p><input class="btn btn-danger my-3 px-5 py-3 fw-bold" type="submit" value="Добавить в корзину" {% if not stock %} disabled {% endif %}></p>
+</form>

@@ -1,0 +1,20 @@
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+    {% for product in products %}
+        <a href="{{product.get_absolute_url}}" class="text-decoration-none">
+            <div class="col">
+                <div class="card">
+                    <div class="d-flex align-items-center justify-content-center rectangle-image-container">
+                        <img src="{{product.image.last.image.url}}" alt="Image" class="img-fluid">
+                    </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.price }}  &#8381;</h5>
+                    <p class="card-text">{{product.product_type}} {{product.title}}</p>
+                    {% if badge_new %}
+                        <span class="badge text-bg-danger">Новинка!</span>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>

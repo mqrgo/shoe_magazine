@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+    Редактировать заказ
+{% endblock %}
+{% block content %} 
+    <h2 class="fs-4">Редактировать заказ № {{order_number}}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-outline-danger px-4">Сохранить</button>
+    </form>
+{% endblock %}
+
+
+
+
+
